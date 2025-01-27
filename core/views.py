@@ -3,13 +3,17 @@ from django.views.generic import TemplateView
 import urllib3
 from bs4 import BeautifulSoup
 
+from core.models import MetalBidPrice
+
 
 # Create your views here.
 def home(request):
-    sol()
+    ask_price_list, bid_price_list = sol()
 
     context = {
-        "test": "TEST",
+        "materials": ["Alum", "Lead", "Cobalt"],
+        "ask_price_list": ask_price_list,
+        "bid_price_list": bid_price_list,
     }
     return render(request, "core/home.html", context=context)
 
@@ -40,6 +44,29 @@ def sol():
     print(f"ALUM - Bid: {alum_bid}, Ask: {alum_ask}")
     print(f"LEAD - Bid: {lead_bid}, Ask: {lead_ask}")
     print(f"COBALT - Bid: {cobalt_bid}, Ask: {cobalt_ask}")
+
+    bid_price_list = []
+    bid_price_list.append(float(alum_bid))
+    bid_price_list.append(float(lead_bid))
+    bid_price_list.append(float(cobalt_bid))
+
+    ask_price_list = []
+    ask_price_list.append(float(alum_ask))
+    ask_price_list.append(float(lead_ask))
+    ask_price_list.append(float(cobalt_ask))
+
+    metals = ["Alum", "Lead", "Cobalt"]
+
+    for i, metal in enumerate(metals):
+        MetalBidPrice.objects.create(material=metal, bid_price=bid_price_list[i])
+
+    db_racords = MetalBidPrice.objects.all()
+    print(db_racords.count())
+
+    for record in db_racords:
+        print(record.material, record.bid_price, record.created_at)
+
+    return ask_price_list, bid_price_list
 
 
 def something_cool(request):

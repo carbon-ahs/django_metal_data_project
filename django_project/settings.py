@@ -96,6 +96,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.oracle',
+#         'NAME': '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.150.122)(PORT=1520))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=PROD)))',
+#         'USER': 'apps',
+#         'PASSWORD': 'apps',
+#     }
+# }
+
+
 # User Auth
 AUTH_USER_MODEL = "accounts.CustomUser"
 # Password validation

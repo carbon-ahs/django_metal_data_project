@@ -1,12 +1,57 @@
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Bid and Ask Price Bar Chart</title>
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Create a canvas element to render the chart -->
+    <canvas id="productChart" width="40" height="20"></canvas>
 
+    <script>
+        // Product data: Name and corresponding Bid and Ask prices
+        const products = {{materials|safe}};
+        {% comment %} const products = {{materials}}; {% endcomment %}
+        const askPrices = {{ask_price_list}};
+        const bidPrices = {{bid_price_list}};
 
-  <!-- Vendor CSS Files -->
-  <link href="{% static '/assets/css/custom_style.css' %}" rel="stylesheet">
-  <!-- <style>h1 {
-    color: blue;
-    font-family: verdana;
-    font-size: 300%;
-}</style> -->
-<h1>hi!!</h1>
-<a href="./admin">admin</a>
+        // Get the context of the canvas element
+        var ctx = document.getElementById('productChart').getContext('2d');
+
+        // Create a new chart
+        var productChart = new Chart(ctx, {
+            type: 'bar',  // The chart type (bar chart)
+            data: {
+                labels: products,  // X-axis labels (product names)
+                datasets: [
+                    {
+                        label: 'Bid Price ($)',  // Label for the first dataset
+                        data: bidPrices,  // Y-axis data for bid prices
+                        backgroundColor: 'red',  // Bar color for bid prices
+                        borderColor: 'rgba(54, 162, 235, 1)',  // Border color for bid prices
+                        borderWidth: 1  // Border width for bid prices
+                    },
+                    {
+                        label: 'Ask Price ($)',  // Label for the second dataset
+                        data: askPrices,  // Y-axis data for ask prices
+                        backgroundColor: 'green',  // Bar color for ask prices
+                        borderColor: 'rgba(255, 99, 132, 1)',  // Border color for ask prices
+                        borderWidth: 1  // Border width for ask prices
+                    }
+                ]
+            },
+            options: {
+                responsive: true,  // Make the chart responsive to window resizing
+                scales: {
+                    y: {
+                        beginAtZero: true  // Start the Y-axis from zero
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

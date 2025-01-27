@@ -31,3 +31,21 @@ class TimeStampMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class MetalBidPrice(TimeStampMixin):
+    """Model definition for MetalBidPrice."""
+
+    # TODO: Define fields here
+    material = models.CharField(_("Material"), max_length=50)
+    bid_price = models.FloatField(_("Bid Price"))
+
+    class Meta:
+        """Meta definition for MetalBidPrice."""
+
+        verbose_name = "MetalBidPrice"
+        verbose_name_plural = "MetalBidPrices"
+
+    def __str__(self):
+        """Unicode representation of MetalBidPrice."""
+        return f"{self.material} - {self.bid_price}"
