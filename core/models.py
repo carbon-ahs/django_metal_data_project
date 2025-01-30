@@ -49,3 +49,26 @@ class MetalBidPrice(TimeStampMixin):
     def __str__(self):
         """Unicode representation of MetalBidPrice."""
         return f"{self.material} - {self.bid_price}"
+
+
+class LmePriceTrend(models.Model):
+    """Model definition for LmePriceTrend."""
+
+    # TODO: Define fields here
+    entry_date = models.DateField(_("Entry Date"))
+    data_source = models.CharField(_("Data Source"), max_length=50)
+    material = models.CharField(_("Material"), max_length=50)
+    bid_price = models.FloatField(_("Bid Price"))
+    ask_price = models.FloatField(_("Ask Price"))
+    currency = models.CharField(_("Currency"), max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Meta definition for LmePriceTrend."""
+
+        verbose_name = "LmePriceTrend"
+        verbose_name_plural = "LmePriceTrends"
+
+    def __str__(self):
+        """Unicode representation of LmePriceTrend."""
+        return f"{self.material} - {self.bid_price}"

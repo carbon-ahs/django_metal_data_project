@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "debug_toolbar",
     "corsheaders",
+    "apscheduler",
     # project apps
     "core",
     "accounts.apps.AccountsConfig",
@@ -89,20 +90,31 @@ REST_FRAMEWORK = {
 
 # Database
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.150.122)(PORT=1520))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=PROD)))',
+        'USER': 'apps',
+        'PASSWORD': 'apps',
     }
 }
 
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.oracle',
-#         'NAME': '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.150.122)(PORT=1520))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=PROD)))',
-#         'USER': 'apps',
-#         'PASSWORD': 'apps',
-#     }
+#     "default": {
+#         "ENGINE": "django.db.backends.oracle",
+#         "NAME": "EBS_1255_DEV",
+#         "USER": "apps",
+#         "PASSWORD": "apps",
+#         # "HOST": "192.168.150.122",
+#         # "PORT": "1520",
+#     },
 # }
 
 
